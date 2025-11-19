@@ -1,0 +1,22 @@
+replicaCount: 1
+
+image:
+  repository: ayoobki/product-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  port: 3004
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  className: nginx
+  host: micro.local
+  path: /products
+  pathType: Prefix
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
