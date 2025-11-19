@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "profile-service.fullname" . | trunc 63 }}
+  labels:
+    app: {{ include "profile-service.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "profile-service.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "profile-service.name" . }}
+    spec:
+      containers:
+        - name: {{ include "profile-service.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          resources: {{ toYaml .Values.resources | nindent 10 }}
