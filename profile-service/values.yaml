@@ -1,0 +1,22 @@
+replicaCount: 1
+
+image:
+  repository: ayoobki/profile-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  port: 3002
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  className: nginx
+  host: micro.local
+  path: /profiles
+  pathType: Prefix
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
